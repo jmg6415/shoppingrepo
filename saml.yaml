@@ -73,10 +73,4 @@ Resources:
      	  PrimaryKey:
    	  Name: Date
  	  Type: Number
-	  Role: 'arn:aws:iam::945953324256:role/service-role/guest'
-       ProvisionedThroughput:
-       ReadCapacityUnits: 5
-       WriteCapacityUnits: 5
-       Policies:
-          - AWSLambdaBasicExecutionRole
-          - AmazonDynamoDBFullAccess 
+      
