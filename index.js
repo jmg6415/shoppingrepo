@@ -12,7 +12,7 @@ exports.handler = function(e, ctx, callback){
       Item: {
 
           date: Date.now(),
-          message: "I love you"
+          message: e.message
           },
           TableName: 'guestbook'
       };
