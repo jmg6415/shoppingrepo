@@ -1,0 +1,82 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  guestlambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs6.10
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 3
+      Role: 'arn:aws:iam::945953324256:role/service-role/guest'
+      Events:
+        BucketEvent1:
+          Type: S3
+          Properties:
+            Bucket:
+              Ref: Bucket1
+            Events:
+              - 's3:ObjectCreated:Post'
+        Api1:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+        Api2:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+        Api3:
+          Type: Api
+          Properties:
+            Path: /entrada
+            Method: GET
+        Api4:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+        Api5:
+          Type: Api
+          Properties:
+            Path: /entries
+            Method: POST
+      Environment:
+        Variables:
+          message: ''
+  Bucket1:
+    Type: 'AWS::S3::Bucket'
+
+  readguests:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs6.10
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 3
+      Role: 'arn:aws:iam::945953324256:role/service-role/guest'
+      Events:
+        Api1:
+          Type: Api
+          Properties:
+            Path: /entries
+            Method: GET
+    guestbook:
+     Type: AWS::DynamoDB::Table
+     Properties:
+     	  PrimaryKey:
+   	  Name: Date
+ 	  Type: Number
+	  Role: 'arn:aws:iam::945953324256:role/service-role/guest'
+       ProvisionedThroughput:
+       ReadCapacityUnits: 5
+       WriteCapacityUnits: 5
+       Policies:
+          - AWSLambdaBasicExecutionRole
+          - AmazonDynamoDBFullAccess 
