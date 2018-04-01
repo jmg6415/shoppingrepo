@@ -12,14 +12,6 @@ Resources:
       MemorySize: 128
       Timeout: 3
       Role: 'arn:aws:iam::945953324256:role/service-role/guest'
-      Events:
-        BucketEvent1:
-          Type: S3
-          Properties:
-            Bucket:
-              Ref: Bucket1
-            Events:
-              - 's3:ObjectCreated:Post'
         Api1:
           Type: Api
           Properties:
@@ -48,8 +40,6 @@ Resources:
       Environment:
         Variables:
           message: ''
-  Bucket1:
-    Type: 'AWS::S3::Bucket'
 
   readguests:
     Type: 'AWS::Serverless::Function'
